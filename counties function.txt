@@ -1,0 +1,93 @@
+A.Countries from asian subcontinent using filter function
+________________________________________________________________
+
+fetch("https://restcountries.com/v3.1/all")
+  .then(response => response.json())
+  .then(data => {
+    const asianCountries = data.filter(country => country.region === 'Asia');
+    console.log(asianCountries);
+  })
+  .catch(error => {
+    console.log("Error:", error);
+  });
+
+
+B.Population less than 2 lakhs
+___________________________________
+
+fetch("https://restcountries.com/v3.1/all")
+  .then(response => response.json())
+  .then(data => {
+    const countriesWithLowPopulation = data.filter(country => country.population < 200000);
+    console.log(countriesWithLowPopulation);
+  })
+  .catch(error => console.log(error));
+
+
+
+
+c.Countries flag
+_________________________
+
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(country => {
+      const name = country.name.common;
+      const capital = country.capital[0];
+      const flag = country.flags.png;
+
+      console.log('Name:', name);
+      console.log('Capital:', capital);
+      console.log('Flag:', flag);
+      console.log('----------------------');
+    });
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+
+
+
+
+
+D.Population using reduce function.
+____________________________________________
+
+const fetch = require('node-fetch');
+
+const url = 'https://restcountries.com/v3.1/all';
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    const totalPopulation = data.reduce((total, country) => total + country.population, 0);
+    console.log(`Total population: ${totalPopulation}`);
+  })
+  .catch(error => console.log(error));
+
+
+
+
+e. Countries using US Dollars as currency
+________________________________________________
+
+
+fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    const countries = data;
+    const countryUsingUSD = countries.find(country => {
+      return country.currencies.USD !== undefined;
+    });
+
+    if (countryUsingUSD) {
+      console.log('Country that uses US Dollars:', countryUsingUSD.name.common);
+    } else {
+      console.log('No country uses US Dollars as currency.');
+    }
+  })
+  .catch(error => {
+    console.log('An error occurred:', error);
+  });
+__________________________________________________________________________________________________________________________________________________________________________________________
